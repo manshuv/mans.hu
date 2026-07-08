@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your life in weeks — mans.hu</title>
+  <meta name="description" content="An interactive visualization of a 4,000-week life, by age instead of birthdate.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..800;1,6..72,400..500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <style>
+    /* Post-specific: the weeks-grid tool */
+    .weeks-tool {
+      margin: 36px 0 8px;
+      font-family: var(--sans);
+    }
+    .weeks-tool__controls {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .weeks-tool__controls label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+    }
+    .weeks-tool__controls input[type="number"] {
+      width: 76px;
+      font-family: var(--serif);
+      font-size: 24px;
+      text-align: center;
+      background: transparent;
+      color: var(--ink);
+      border: none;
+      border-bottom: 2px solid var(--ink);
+      padding: 2px 4px;
+    }
+    .weeks-tool__controls input[type="number"]:focus {
+      outline: none;
+    }
+    .weeks-tool__stat {
+      font-family: var(--serif);
+      font-size: 19px;
+      line-height: 1.55;
+      color: var(--ink);
+      margin: 0 0 26px;
+    }
+    .weeks-grid {
+      display: grid;
+      grid-template-columns: repeat(52, 1fr);
+      gap: 2px;
+    }
+    .week {
+      aspect-ratio: 1;
+      background: var(--rule);
+    }
+    .week.lived {
+      background: var(--ink);
+    }
+    .weeks-tool__caption {
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--ink-3);
+    }
+    .weeks-tool__legend {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      margin-top: 10px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+    }
+    .weeks-tool__legend .swatch {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+    .swatch--lived { background: var(--ink); }
+    .swatch--remaining { background: var(--rule); }
+  </style>
+</head>
+<body>
+
+  <header class="masthead">
+    <div class="masthead__bar">
+      <span id="dateline"></span>
+      <span>Est. 2026 &middot; Personal edition</span>
+    </div>
+    <a class="masthead__brand" href="../index.html">
+      <div class="masthead__wordmark">mans.hu</div>
+      <div class="masthead__tagline">Notes, thoughts, and things worth writing down</div>
+    </a>
+    <nav class="masthead__nav">
+      <a href="../index.html">Home</a>
+    </nav>
+  </header>
+
+  <main class="article">
+    <div class="article__head">
+      <span class="kicker">Interactive</span>
+      <h1 class="article__title">Your life in weeks</h1>
+      <p class="article__dek">Assume 4,000 weeks — about 77 years. Enter your age to see how many you've spent, and how many might be left.</p>
+    </div>
+
+    <div class="article__meta">
+      <span>By <strong>Manshu Verma</strong></span>
+      <span aria-hidden="true">&middot;</span>
+      <span>July 8, 2026</span>
+    </div>
+
+    <div class="prose">
+      <p>The idea isn't new. Tim Urban's "Your Life in Weeks" and Oliver Burkeman's book <em>Four Thousand Weeks</em> both use the same trick: shrink a lifetime down to a grid small enough to see all at once. It's a cheap trick, and it works anyway — a bar chart of your own mortality is a different kind of argument than a sentence about it.</p>
+      <p>Most versions of this ask for a birthdate. I wanted one that just asks for your age, so here it is. Each square below is one week. Each row is one year. The filled squares are spent; the rest are not yet decided.</p>
+    </div>
+
+    <div class="weeks-tool">
+      <div class="weeks-tool__controls">
+        <label for="ageInput">Your age</label>
+        <input type="number" id="ageInput" min="0" max="100" step="0.1" value="30">
+      </div>
+      <p class="weeks-tool__stat" id="weeksStat"></p>
+      <div class="weeks-grid" id="weeksGrid" role="img" aria-label="Grid of 4000 squares representing weeks in a life, filled squares indicating weeks already lived"></div>
+      <div class="weeks-tool__legend">
+        <span><span class="swatch swatch--remaining"></span>Remaining</span>
+        <span><span class="swatch swatch--lived"></span>Lived</span>
+      </div>
+      <p class="weeks-tool__caption">4,000 weeks, 52 per row. Nothing here accounts for the ones that don't get used well.</p>
+    </div>
+
+    <div class="article__foot">
+      <a href="../index.html">&larr; Back to the latest</a>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    &copy; 2026 Manshu Verma
+  </footer>
+
+  <script>
+    document.getElementById('dateline').textContent = new Date().toLocaleDateString('en-US', {
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+    });
+  </script>
+  <script>
+    (function () {
+      var WEEKS_PER_YEAR = 52.1775;
+      var TOTAL_WEEKS = 4000;
+      var grid = document.getElementById('weeksGrid');
+      var input = document.getElementById('ageInput');
+      var stat = document.getElementById('weeksStat');
+
+      var cells = [];
+      var fragment = document.createDocumentFragment();
+      for (var i = 0; i < TOTAL_WEEKS; i++) {
+        var cell = document.createElement('div');
+        cell.className = 'week';
+        fragment.appendChild(cell);
+        cells.push(cell);
+      }
+      grid.appendChild(fragment);
+
+      function render() {
+        var age = Math.max(0, Math.min(100, parseFloat(input.value) || 0));
+        var lived = Math.min(TOTAL_WEEKS, Math.round(age * WEEKS_PER_YEAR));
+        var firstLivedIndex = TOTAL_WEEKS - lived;
+        for (var i = 0; i < cells.length; i++) {
+          cells[i].classList.toggle('lived', i >= firstLivedIndex);
+        }
+        var remaining = TOTAL_WEEKS - lived;
+        var pct = ((lived / TOTAL_WEEKS) * 100).toFixed(1);
+        var remainingYears = (remaining / WEEKS_PER_YEAR).toFixed(1);
+        stat.innerHTML = 'At age <strong>' + age + '</strong>, you\'ve lived roughly <strong>' +
+          lived.toLocaleString() + '</strong> of 4,000 weeks (<strong>' + pct + '%</strong>) &mdash; about <strong>' +
+          remainingYears + '</strong> years left, if you get all 4,000.';
+      }
+
+      input.addEventListener('input', render);
+      render();
+    })();
+  </script>
+</body>
+</html>

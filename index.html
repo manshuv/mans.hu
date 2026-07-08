@@ -5,28 +5,55 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>mans.hu</title>
   <meta name="description" content="Personal blog of Manshu Verma.">
-  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..800;1,6..72,400..500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/base.css">
 </head>
 <body>
-  <header>
-    <h1>mans.hu</h1>
-    <p>Notes, thoughts, and things worth writing down.</p>
-    <nav>
-      <a href="/">Home</a>
+
+  <header class="masthead">
+    <div class="masthead__bar">
+      <span id="dateline"></span>
+      <span>Est. 2026 &middot; Personal edition</span>
+    </div>
+    <a class="masthead__brand" href="index.html">
+      <div class="masthead__wordmark">mans.hu</div>
+      <div class="masthead__tagline">Notes, thoughts, and things worth writing down</div>
+    </a>
+    <nav class="masthead__nav">
+      <a href="index.html" aria-current="page">Home</a>
     </nav>
   </header>
 
-  <main>
-    <ul class="post-list">
-      <li>
-        <a href="/posts/2026-07-08-hello-world.html">Hello, world</a>
-        <span class="post-date">July 8, 2026</span>
-      </li>
-    </ul>
+  <main class="feed">
+    <article class="lead">
+      <span class="kicker">Interactive</span>
+      <h1 class="lead__title">
+        <a href="posts/2026-07-08-your-life-in-weeks.html">Your life in weeks</a>
+      </h1>
+      <p class="lead__dek">Assume 4,000 weeks. Enter your age to see how many you've spent, and how many might be left.</p>
+      <div class="byline">By <strong>Manshu Verma</strong> &middot; July 8, 2026</div>
+    </article>
+
+    <article class="story">
+      <div class="story__body">
+        <span class="kicker">First post</span>
+        <h2 class="story__title"><a href="posts/2026-07-08-hello-world.html">Hello, world</a></h2>
+        <p class="story__dek">The first post on mans.hu, and a note on how this place is built.</p>
+        <div class="byline">By <strong>Manshu Verma</strong> &middot; July 8, 2026</div>
+      </div>
+    </article>
   </main>
 
-  <footer>
+  <footer class="site-footer">
     &copy; 2026 Manshu Verma
   </footer>
+
+  <script>
+    document.getElementById('dateline').textContent = new Date().toLocaleDateString('en-US', {
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+    });
+  </script>
 </body>
 </html>
