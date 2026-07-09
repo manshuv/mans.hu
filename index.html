@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>mans.hu</title>
+  <title>manshuverma.com</title>
   <meta name="description" content="Personal blog of Manshu Verma.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,17 +12,10 @@
 </head>
 <body>
 
-  <header class="masthead">
-    <div class="masthead__bar">
-      <span id="dateline"></span>
-      <span>Est. 2026 &middot; Personal edition</span>
-    </div>
-    <a class="masthead__brand" href="index.html">
-      <div class="masthead__wordmark">mans.hu</div>
-      <div class="masthead__tagline">Notes, thoughts, and things worth writing down</div>
-    </a>
-    <nav class="masthead__nav">
+  <header class="site-header">
+    <nav>
       <a href="index.html" aria-current="page">Home</a>
+      <a href="about.html">About</a>
     </nav>
   </header>
 
@@ -35,25 +28,10 @@
       <p class="lead__dek">Assume 4,000 weeks. Enter your age to see how many you've spent, and how many might be left.</p>
       <div class="byline">By <strong>Manshu Verma</strong> &middot; July 8, 2026</div>
     </article>
-
-    <article class="story">
-      <div class="story__body">
-        <span class="kicker">First post</span>
-        <h2 class="story__title"><a href="posts/2026-07-08-hello-world.html">Hello, world</a></h2>
-        <p class="story__dek">The first post on mans.hu, and a note on how this place is built.</p>
-        <div class="byline">By <strong>Manshu Verma</strong> &middot; July 8, 2026</div>
-      </div>
-    </article>
   </main>
 
   <footer class="site-footer">
     &copy; 2026 Manshu Verma
   </footer>
-
-  <script>
-    document.getElementById('dateline').textContent = new Date().toLocaleDateString('en-US', {
-      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
-    });
-  </script>
 </body>
 </html>

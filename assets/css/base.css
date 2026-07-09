@@ -1,5 +1,5 @@
 /* ============================================================
-   mans.hu — editorial blog stylesheet
+   manshuverma.com — editorial blog stylesheet
    Plain HTML + CSS. No build step, no dependencies except one
    Google Font (Newsreader), linked in each page's <head>.
    Adapted from a starter template — see starter-site/ for the source.
@@ -37,40 +37,27 @@ a:hover { color: var(--ink-2); }
 ::selection { background: var(--ink); color: #fff; }
 
 /* ============================================================
-   MASTHEAD
+   SITE HEADER — slim, no masthead
    ============================================================ */
-.masthead { max-width: 960px; margin: 0 auto; padding: 0 24px; }
-
-.masthead__bar {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 12px 0;
-  font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
-  color: var(--ink-3);
+.site-header {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 22px 24px;
   border-bottom: 1px solid var(--rule);
+  font-family: var(--sans);
 }
-
-.masthead__brand { text-align: center; padding: 22px 0 14px; }
-.masthead__wordmark {
-  font-family: var(--serif); font-weight: 800;
-  letter-spacing: -0.02em; line-height: 0.95;
-  font-size: clamp(44px, 8vw, 92px);
+.site-header nav {
+  display: flex;
+  gap: 20px;
 }
-.masthead__tagline {
-  font-family: var(--serif); font-style: italic;
-  font-size: clamp(14px, 2vw, 18px); color: var(--ink-2); margin-top: 6px;
+.site-header nav a {
+  font-size: 13px;
+  color: var(--ink-3);
 }
-
-.masthead__nav {
-  display: flex; justify-content: center; flex-wrap: wrap; gap: 28px;
-  padding: 12px 0;
-  border-top: 3px double var(--ink);
-  border-bottom: 1px solid var(--ink);
-  font-size: 12px; font-weight: 600; letter-spacing: 0.08em;
-  text-transform: uppercase;
+.site-header nav a:hover,
+.site-header nav a[aria-current="page"] {
+  color: var(--ink);
 }
-.masthead__nav a { color: var(--ink-3); }
-.masthead__nav a:hover,
-.masthead__nav a[aria-current="page"] { color: var(--ink); }
 
 /* ============================================================
    LAYOUT WRAPPERS

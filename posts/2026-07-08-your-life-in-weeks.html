@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Your life in weeks — mans.hu</title>
+  <title>Your life in weeks — manshuverma.com</title>
   <meta name="description" content="An interactive visualization of a 4,000-week life, by age instead of birthdate.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -90,17 +90,10 @@
 </head>
 <body>
 
-  <header class="masthead">
-    <div class="masthead__bar">
-      <span id="dateline"></span>
-      <span>Est. 2026 &middot; Personal edition</span>
-    </div>
-    <a class="masthead__brand" href="../index.html">
-      <div class="masthead__wordmark">mans.hu</div>
-      <div class="masthead__tagline">Notes, thoughts, and things worth writing down</div>
-    </a>
-    <nav class="masthead__nav">
+  <header class="site-header">
+    <nav>
       <a href="../index.html">Home</a>
+      <a href="../about.html">About</a>
     </nav>
   </header>
 
@@ -145,11 +138,6 @@
     &copy; 2026 Manshu Verma
   </footer>
 
-  <script>
-    document.getElementById('dateline').textContent = new Date().toLocaleDateString('en-US', {
-      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
-    });
-  </script>
   <script>
     (function () {
       var WEEKS_PER_YEAR = 52.1775;
