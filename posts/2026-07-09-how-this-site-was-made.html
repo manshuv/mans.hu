@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How this site was made - manshuverma.com</title>
+  <meta name="description" content="How this site was designed, built, hosted, and hardened with a small stack of human and AI tools.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..800;1,6..72,400..500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <style>
+    .stack-demo {
+      margin: 34px 0 12px;
+      padding: 22px 0;
+      border-top: 2px solid var(--ink);
+      border-bottom: 1px solid var(--rule);
+      font-family: var(--sans);
+    }
+    .stack-demo__eyebrow {
+      display: block;
+      margin-bottom: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+    }
+    .toolchain {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    .toolchain__card {
+      display: grid;
+      align-content: space-between;
+      min-height: 92px;
+      border: 1px solid var(--rule);
+      background: var(--paper);
+      color: var(--ink);
+      padding: 12px;
+      font: 600 11px var(--sans);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      text-align: left;
+      cursor: pointer;
+    }
+    .toolchain__card span {
+      color: var(--ink-3);
+      font-size: 10px;
+    }
+    .toolchain__card[aria-pressed="true"] {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--paper);
+    }
+    .toolchain__card[aria-pressed="true"] span {
+      color: var(--ink-4);
+    }
+    .stack-demo__panel {
+      min-height: 132px;
+      border-left: 3px solid var(--ink);
+      padding-left: 18px;
+    }
+    .stack-demo__label {
+      margin: 0 0 6px;
+      font-family: var(--serif);
+      font-size: 28px;
+      line-height: 1.1;
+      font-weight: 700;
+    }
+    .stack-demo__copy {
+      margin: 0;
+      max-width: 58ch;
+      color: var(--ink-2);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .tool-list {
+      margin: 30px 0 0;
+      padding: 0;
+      list-style: none;
+      border-top: 1px solid var(--rule);
+      font-family: var(--sans);
+    }
+    .tool-list li {
+      display: grid;
+      grid-template-columns: minmax(120px, 170px) 1fr;
+      gap: 18px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .tool-list strong {
+      font-size: 12px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+    .tool-list span {
+      color: var(--ink-2);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    @media (max-width: 560px) {
+      .tool-list li { grid-template-columns: 1fr; gap: 4px; }
+      .toolchain { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../about.html">About</a>
+    </nav>
+  </header>
+
+  <main class="article">
+    <div class="article__head">
+      <span class="kicker">Colophon</span>
+      <h1 class="article__title">How this site was made</h1>
+      <p class="article__dek">A small static site, a custom domain, and enough AI-assisted tooling to make each page feel like its own little instrument.</p>
+    </div>
+
+    <div class="article__meta">
+      <span>By <strong>Manshu Verma</strong></span>
+      <span aria-hidden="true">&middot;</span>
+      <span>July 9, 2026</span>
+    </div>
+
+    <div class="prose">
+      <p>This site is intentionally simple: plain HTML, CSS, and a little JavaScript where a page needs to move. There is no heavy framework hiding behind the curtain, no database, no elaborate build pipeline. The point was to keep the surface area small enough that I could understand it, change it, and publish it without turning writing into software operations.</p>
+
+      <p>The design started with a reference point: the editorial feel of nytimes.com. Not the whole product, obviously, but the typography, hierarchy, confidence, and restraint. Claude Design helped turn that reference into a visual direction for a personal site: serif-forward, mostly black and white, quiet navigation, and enough room for the writing to do the work.</p>
+
+      <p>Claude Code built the first version of the site structure. It laid down the static pages, the shared stylesheet, and the first interactive post, <em>Your life in weeks</em>. That post is the reason I like this setup: every page can be its own small HTML document, with its own CSS and JavaScript if the idea calls for it.</p>
+    </div>
+
+    <section class="stack-demo" aria-labelledby="stackDemoTitle">
+      <span class="stack-demo__eyebrow">Interactive toolchain</span>
+      <div class="toolchain" aria-label="Tools used to build this site">
+        <button class="toolchain__card" type="button" data-stage="squarespace" aria-pressed="true">
+          Squarespace
+          <span>Domain</span>
+        </button>
+        <button class="toolchain__card" type="button" data-stage="cloudflare" aria-pressed="false">
+          Cloudflare
+          <span>Hosting</span>
+        </button>
+        <button class="toolchain__card" type="button" data-stage="claudeDesign" aria-pressed="false">
+          Claude Design
+          <span>Visual system</span>
+        </button>
+        <button class="toolchain__card" type="button" data-stage="claudeCode" aria-pressed="false">
+          Claude Code
+          <span>Initial build</span>
+        </button>
+        <button class="toolchain__card" type="button" data-stage="github" aria-pressed="false">
+          GitHub
+          <span>Source control</span>
+        </button>
+        <button class="toolchain__card" type="button" data-stage="codex" aria-pressed="false">
+          Codex
+          <span>Config + security</span>
+        </button>
+      </div>
+      <div class="stack-demo__panel">
+        <h2 class="stack-demo__label" id="stackDemoTitle">Squarespace registered the name</h2>
+        <p class="stack-demo__copy" id="stackDemoCopy">manshuverma.com is registered at Squarespace. The domain lives there, while the actual site is served somewhere else.</p>
+      </div>
+    </section>
+
+    <div class="prose">
+      <p>The domain is registered at Squarespace, but the site itself is hosted on Cloudflare. GitHub hosts the source of truth for the pages, and Cloudflare serves the deployed version from that source. That split keeps ownership, code, and hosting cleanly separated.</p>
+
+      <p>Codex came in at the end, which is where the boring but important work lives. It helped connect the custom domain, move the DNS records off the old Squarespace parking page, verify the Cloudflare Worker routes, and harden the GitHub repository before I shared it publicly. The main branch now requires a pull request and an approval before changes can land.</p>
+
+      <p>What I like about this stack is that it stays humble. A post can be just words. A post can also contain a grid, a calculator, a visualization, a tiny game, or whatever else the argument needs. The site does not have to become an app for a page to become interactive.</p>
+    </div>
+
+    <ul class="tool-list" aria-label="Tools used to make this site">
+      <li>
+        <strong>Squarespace</strong>
+        <span>Domain registration for manshuverma.com.</span>
+      </li>
+      <li>
+        <strong>Cloudflare</strong>
+        <span>Hosting, DNS, HTTPS, and the custom domain connection.</span>
+      </li>
+      <li>
+        <strong>Claude Design</strong>
+        <span>Visual direction, using nytimes.com as the editorial reference.</span>
+      </li>
+      <li>
+        <strong>Claude Code</strong>
+        <span>Initial static site structure, stylesheet, and first interactive page.</span>
+      </li>
+      <li>
+        <strong>GitHub</strong>
+        <span>Repository hosting, pull requests, and branch protection.</span>
+      </li>
+      <li>
+        <strong>Codex</strong>
+        <span>Final DNS and Cloudflare configuration, live verification, and security hardening.</span>
+      </li>
+    </ul>
+
+    <div class="article__foot">
+      <a href="../index.html">&larr; Back to the latest</a>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    &copy; 2026 Manshu Verma
+  </footer>
+
+  <script>
+    (function () {
+      var stages = {
+        squarespace: {
+          title: 'Squarespace registered the name',
+          copy: 'manshuverma.com is registered at Squarespace. The domain lives there, while the actual site is served somewhere else.'
+        },
+        cloudflare: {
+          title: 'Cloudflare serves the site',
+          copy: 'Cloudflare handles DNS, HTTPS, and hosting. The custom domains point at the Worker that serves these static pages.'
+        },
+        claudeDesign: {
+          title: 'Claude Design shaped the look',
+          copy: 'Claude Design used nytimes.com as a reference for an editorial layout: serif type, restrained navigation, and a calm reading surface.'
+        },
+        claudeCode: {
+          title: 'Claude Code built the first pass',
+          copy: 'Claude Code created the initial static site setup: pages, CSS, and the first interactive post.'
+        },
+        github: {
+          title: 'GitHub hosts the source',
+          copy: 'GitHub is the public source of truth for the site. People can clone it, but protected rules keep main from being changed casually.'
+        },
+        codex: {
+          title: 'Codex handled the final mile',
+          copy: 'Codex connected the domain, verified the live site, and helped protect the GitHub repo so public readers can clone it without being able to change main.'
+        }
+      };
+
+      var buttons = document.querySelectorAll('[data-stage]');
+      var title = document.getElementById('stackDemoTitle');
+      var copy = document.getElementById('stackDemoCopy');
+
+      function selectStage(stage) {
+        var content = stages[stage];
+        title.textContent = content.title;
+        copy.textContent = content.copy;
+        buttons.forEach(function (button) {
+          var isActive = button.getAttribute('data-stage') === stage;
+          button.setAttribute('aria-pressed', String(isActive));
+        });
+      }
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          selectStage(button.getAttribute('data-stage'));
+        });
+      });
+      selectStage('squarespace');
+    })();
+  </script>
+</body>
+</html>
