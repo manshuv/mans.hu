@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog roadmap - manshuverma.com</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..800;1,6..72,400..500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/base.css">
+<meta name="description" content="Explore enhancements for this blog with interactive RICE scoring.">
+<style>
+.roadmap { max-width: 960px; margin: auto; padding: 0 24px; }
+.roadmap .article__head { max-width: 720px; margin: auto; }
+.roadmap .article__meta { margin-bottom: 40px; }
+.section-title { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; margin: 0 0 18px; }
+.defs { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; margin-bottom:40px; }
+.def { border-top:1px solid var(--rule); padding-top:14px; }
+.def h3 { font-family:var(--serif); font-size:24px; margin:0 0 10px; }
+.def p { font-size:13px; line-height:1.6; color:var(--ink-2); margin:0; }
+.toolbar { display:flex; justify-content:space-between; align-items:center; gap:12px; border-top:2px solid var(--ink); padding:18px 0; }
+.toolbar .section-title { margin:0; }
+button { font:inherit; color:var(--ink); background:var(--paper); border:1px solid var(--rule); cursor:pointer; padding:8px 10px; }
+button:hover { border-color:var(--ink); }
+button:focus-visible, select:focus-visible { outline:2px solid var(--ink); outline-offset:3px; }
+.step { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:20px; padding:24px 0; border-bottom:1px solid var(--rule); }
+.left { display:flex; align-items:center; gap:16px; flex:1 1 270px; }
+.title { font-family:var(--serif); font-size:25px; font-weight:700; line-height:1.1; }
+.line { font-size:13px; line-height:1.6; color:var(--ink-2); margin-top:6px; max-width:38ch; }
+.handle { cursor:grab; color:var(--ink-3); font-size:22px; user-select:none; }
+.move-controls { display:flex; flex-direction:column; gap:4px; }
+.move-controls button { padding:2px 5px; font-size:12px; }
+.step.dragging { opacity:.4; }
+.rice { display:flex; flex-wrap:wrap; align-items:flex-end; gap:10px; }
+.rice label { display:flex; flex-direction:column; gap:7px; font-size:9px; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-3); }
+.rice select { font:400 12px var(--sans); color:var(--ink); background:var(--paper); border:1px solid var(--rule); border-radius:0; padding:8px 4px; width:74px; }
+.score { min-width:58px; text-align:right; }
+.score-val { font-family:var(--serif); font-size:32px; font-weight:700; line-height:1; font-variant-numeric:tabular-nums; }
+.score-lbl { font-size:9px; color:var(--ink-3); letter-spacing:.08em; margin-top:6px; }
+.rice-note { font-size:12px; line-height:1.7; color:var(--ink-3); margin-top:18px; }
+@media(max-width:760px) { .defs { grid-template-columns:repeat(2,1fr); } .left { flex-basis:100%; } .rice { width:100%; } .score { margin-left:auto; } }
+@media(max-width:420px) { .roadmap { padding:0 18px; } .defs { gap:20px; } .rice { gap:6px; } .rice select { width:64px; } .score { min-width:42px; } .toolbar { flex-wrap:wrap; } }
+</style>
+</head>
+<body>
+<header class="site-header"><nav><a href="../index.html">Home</a><a href="../about.html">About</a></nav></header>
+<main class="roadmap">
+
+    <div class="article__head">
+      <span class="kicker">Interactive · Site development</span>
+      <h1 class="article__title">A better blog,<br>one idea at a time</h1>
+      <p class="article__dek">A small roadmap for this site. Explore what to build next through reach, impact, confidence, and effort.</p>
+    </div>
+    <div class="article__meta"><span>By <strong>Manshu Verma</strong></span><span aria-hidden="true">·</span><time datetime="2026-10-14">October 14, 2026</time></div>
+
+    <h2 class="section-title">A framework for priorities</h2>
+    <div class="defs">
+        <div class="def">
+            <h3>Reach</h3>
+            <p>How many people will this feature affect within a given time period?</p>
+        </div>
+        <div class="def">
+            <h3>Impact</h3>
+            <p>How much will this impact individual users?</p>
+        </div>
+        <div class="def">
+            <h3>Confidence</h3>
+            <p>How confident are we about the impact and reach scores?</p>
+        </div>
+        <div class="def">
+            <h3>Effort</h3>
+            <p>How much of a time investment will this initiative require from product, design and development?</p>        </div>
+    </div>
+
+    <div class="toolbar"><h2 class="section-title">The roadmap</h2><div><button id="sort-score" type="button">Sort by score ↓</button> <button id="reset-scores" type="button">Reset</button></div></div>
+    <div class="steps">
+        <div class="step">
+            <div><div class="title">Subscribe</div><div class="line">Get an email when a new post is published.</div></div>
+        </div>
+        <div class="step">
+            <div><div class="title">Search</div><div class="line">Find posts by keyword or topic.</div></div>
+        </div>
+        <div class="step">
+            <div><div class="title">Topics & tags</div><div class="line">Browse related posts by subject.</div></div>
+        </div>
+        <div class="step">
+            <div><div class="title">Related posts</div><div class="line">Discover another read at the end of each post.</div></div>
+        </div>
+        <div class="step">
+            <div><div class="title">RSS feed</div><div class="line">Follow new posts in a favorite feed reader.</div></div>
+        </div>
+        <div class="step">
+            <div><div class="title">Post archive</div><div class="line">Explore past writing by month and year.</div></div>
+        </div>
+        <div class="step">
+            <div><div class="title">Reading preferences</div><div class="line">Choose a comfortable text size and light or dark theme.</div></div>
+        </div>
+    </div>
+    <div class="rice-note">Drag the handles or use the arrow buttons to reorder. Scores and order are saved in this browser. Dropdown scoring on this page: Reach, Impact and Effort use High = 3, Medium = 2, Low = 1. Confidence uses High = 1, Medium = 0.8, Low = 0.5. Score = Reach x Impact x Confidence / Effort.</div>
+
+<div class="article__foot"><a href="../index.html">← Back to the latest</a></div>
+</main>
+<footer class="site-footer">© Manshu Verma</footer>
+<script>
+
+    var FIELDS = [['R', 'Reach'], ['I', 'Impact'], ['C', 'Confidence'], ['E', 'Effort']];
+    var VAL = {
+        R: { High: 3, Medium: 2, Low: 1 },
+        I: { High: 3, Medium: 2, Low: 1 },
+        C: { High: 1, Medium: 0.8, Low: 0.5 },
+        E: { High: 3, Medium: 2, Low: 1 }
+    };
+    var KEY = 'manshu-blog-roadmap-rice-v1';
+    var saved = {};
+    try { saved = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) {}
+
+    document.querySelectorAll('.step').forEach(function (step) {
+        var name = step.querySelector('.title').textContent;
+        var rice = document.createElement('div');
+        rice.className = 'rice';
+        var selects = {};
+        FIELDS.forEach(function (f) {
+            var label = document.createElement('label');
+            label.textContent = f[1];
+            var sel = document.createElement('select');
+            ['', 'High', 'Medium', 'Low'].forEach(function (v) {
+                var o = document.createElement('option');
+                o.value = v; o.textContent = v || 'Select';
+                sel.appendChild(o);
+            });
+            sel.value = (saved[name] && saved[name][f[0]]) || '';
+            sel.addEventListener('change', update);
+            label.appendChild(sel);
+            rice.appendChild(label);
+            selects[f[0]] = sel;
+        });
+        var score = document.createElement('div');
+        score.className = 'score';
+        score.innerHTML = '<div class="score-val">-</div><div class="score-lbl">RICE</div>';
+        rice.appendChild(score);
+        step.appendChild(rice);
+
+        var left = document.createElement('div');
+        left.className = 'left';
+        var handle = document.createElement('div');
+        handle.className = 'handle';
+        handle.setAttribute('aria-hidden', 'true');
+        handle.title = 'Drag to reorder';
+        handle.textContent = '⋮⋮';
+        left.appendChild(handle);
+        left.appendChild(step.firstElementChild);
+        step.insertBefore(left, rice);
+        var moves = document.createElement('div');
+        moves.className = 'move-controls';
+        [['↑', -1], ['↓', 1]].forEach(function (item) {
+            var button = document.createElement('button');
+            button.type = 'button'; button.textContent = item[0];
+            button.setAttribute('aria-label', 'Move ' + name + (item[1] < 0 ? ' up' : ' down'));
+            button.addEventListener('click', function () {
+                if (item[1] < 0 && step.previousElementSibling) list.insertBefore(step, step.previousElementSibling);
+                else if (item[1] > 0 && step.nextElementSibling) list.insertBefore(step.nextElementSibling, step);
+                saveOrder(); button.focus();
+            });
+            moves.appendChild(button);
+        });
+        left.insertBefore(moves, left.lastElementChild);
+        score.setAttribute('aria-live', 'polite');
+
+        handle.addEventListener('mousedown', function () { step.draggable = true; });
+        handle.addEventListener('mouseup', function () { step.draggable = false; });
+        step.addEventListener('dragstart', function (e) {
+            step.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/plain', name);
+        });
+        step.addEventListener('dragend', function () {
+            step.classList.remove('dragging');
+            step.draggable = false;
+            saveOrder();
+        });
+
+        function update() {
+            var vals = {}, ready = true;
+            FIELDS.forEach(function (f) {
+                vals[f[0]] = selects[f[0]].value;
+                if (!vals[f[0]]) ready = false;
+            });
+            score.firstChild.textContent = ready
+                ? (VAL.R[vals.R] * VAL.I[vals.I] * VAL.C[vals.C] / VAL.E[vals.E]).toFixed(1)
+                : '-';
+            step.dataset.score = ready ? VAL.R[vals.R] * VAL.I[vals.I] * VAL.C[vals.C] / VAL.E[vals.E] : '-1';
+            saved[name] = vals;
+            try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+        }
+        update();
+    });
+
+    var list = document.querySelector('.steps');
+    var ORDER_KEY = 'manshu-blog-roadmap-order-v1';
+
+    function saveOrder() {
+        var names = Array.prototype.map.call(list.querySelectorAll('.step'), function (s) {
+            return s.querySelector('.title').textContent;
+        });
+        try { localStorage.setItem(ORDER_KEY, JSON.stringify(names)); } catch (e) {}
+    }
+
+    try {
+        var order = JSON.parse(localStorage.getItem(ORDER_KEY)) || [];
+        order.forEach(function (n) {
+            Array.prototype.forEach.call(list.querySelectorAll('.step'), function (s) {
+                if (s.querySelector('.title').textContent === n) list.appendChild(s);
+            });
+        });
+    } catch (e) {}
+
+    list.addEventListener('dragover', function (e) {
+        e.preventDefault();
+        var dragging = list.querySelector('.dragging');
+        if (!dragging) return;
+        var after = null, best = -Infinity;
+        list.querySelectorAll('.step:not(.dragging)').forEach(function (s) {
+            var box = s.getBoundingClientRect();
+            var offset = e.clientY - box.top - box.height / 2;
+            if (offset < 0 && offset > best) { best = offset; after = s; }
+        });
+        list.insertBefore(dragging, after);
+    });
+
+    document.getElementById('sort-score').addEventListener('click', function () {
+        Array.from(list.children).sort(function (a, b) { return Number(b.dataset.score) - Number(a.dataset.score); }).forEach(function (step) { list.appendChild(step); });
+        saveOrder();
+    });
+    var originalOrder = ['Subscribe', 'Search', 'Topics & tags', 'Related posts', 'RSS feed', 'Post archive', 'Reading preferences'];
+    document.getElementById('reset-scores').addEventListener('click', function () {
+        list.querySelectorAll('select').forEach(function (select) { select.value = ''; select.dispatchEvent(new Event('change')); });
+        originalOrder.forEach(function (name) { Array.from(list.children).forEach(function (step) { if (step.querySelector('.title').textContent === name) list.appendChild(step); }); });
+        saveOrder();
+    });
+</script>
+</body>
+</html>
