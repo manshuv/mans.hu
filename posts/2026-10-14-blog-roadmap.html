@@ -41,6 +41,10 @@ button:focus-visible, select:focus-visible { outline:2px solid var(--ink); outli
 @media(max-width:760px) { .defs { grid-template-columns:repeat(2,1fr); } .left { flex-basis:100%; } .rice { width:100%; } .score { margin-left:auto; } }
 @media(max-width:420px) { .roadmap { padding:0 18px; } .defs { gap:20px; } .rice { gap:6px; } .rice select { width:64px; } .score { min-width:42px; } .toolbar { flex-wrap:wrap; } }
 </style>
+  <link rel="alternate" type="application/rss+xml" title="Manshu Verma" href="../feed.xml">
+  <script defer src="../community-config.js"></script>
+  <script defer src="../community.js"></script>
+  <link rel="stylesheet" href="../community.css">
 </head>
 <body>
 <header class="site-header"><nav><a href="../index.html">Home</a><a href="../about.html">About</a></nav></header>
@@ -99,8 +103,31 @@ button:focus-visible, select:focus-visible { outline:2px solid var(--ink); outli
     <div class="rice-note">Drag the handles or use the arrow buttons to reorder. Scores and order are saved in this browser. Dropdown scoring on this page: Reach, Impact and Effort use High = 3, Medium = 2, Low = 1. Confidence uses High = 1, Medium = 0.8, Low = 0.5. Score = Reach x Impact x Confidence / Effort.</div>
 
 <div class="article__foot"><a href="../index.html">← Back to the latest</a></div>
-</main>
-<footer class="site-footer">© Manshu Verma</footer>
+
+    <section class="community-section" data-newsletter hidden aria-labelledby="newsletter-heading">
+      <h2 id="newsletter-heading">New writing, by email</h2>
+      <p>Get new articles and interactive essays in your inbox.</p>
+      <form method="post">
+        <label for="newsletter-email">Your email address</label>
+        <div class="newsletter-fields">
+          <input id="newsletter-email" type="email" name="email" autocomplete="email" placeholder="you@example.com" required>
+          <input type="hidden" name="embed" value="1">
+          <button type="submit" disabled>Subscribe</button>
+        </div>
+      </form>
+      <p class="community-note">Email subscriptions are handled by <a href="https://buttondown.com">Buttondown</a>. Unsubscribe at any time.</p>
+    </section>
+
+    <section class="community-section" data-comments data-page-id="2026-10-14-blog-roadmap" hidden aria-labelledby="comments-heading">
+      <h2 id="comments-heading">Join the conversation</h2>
+      <p>Questions, experiences, and thoughtful disagreements are welcome.</p>
+      <button type="button">Load comments</button>
+      <p class="community-note">Comments are hosted by <a href="https://hyvor.com/talk">Hyvor Talk</a>, which connects when you load them. You can comment as a guest. Comments may be moderated.</p>
+      <p class="community-note" role="status"></p>
+    </section>
+  </main>
+<footer class="site-footer">
+    <a href="../feed.xml">RSS feed</a> &middot; © Manshu Verma</footer>
 <script>
 
     var FIELDS = [['R', 'Reach'], ['I', 'Impact'], ['C', 'Confidence'], ['E', 'Effort']];
