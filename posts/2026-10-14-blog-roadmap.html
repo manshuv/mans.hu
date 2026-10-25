@@ -27,6 +27,12 @@ button:focus-visible, select:focus-visible { outline:2px solid var(--ink); outli
 .left { display:flex; align-items:center; gap:16px; flex:1 1 270px; }
 .title { font-family:var(--serif); font-size:25px; font-weight:700; line-height:1.1; }
 .line { font-size:13px; line-height:1.6; color:var(--ink-2); margin-top:6px; max-width:38ch; }
+.idea-copy { flex:1; min-width:0; }
+.idea-edit { display:block; box-sizing:border-box; width:100%; color:var(--ink); background:transparent; border:1px solid var(--rule); border-radius:0; padding:7px 8px; }
+.idea-edit:focus { outline:2px solid var(--ink); outline-offset:2px; }
+.title.idea-edit { font-family:var(--serif); }
+.line.idea-edit { font-family:var(--sans); resize:vertical; min-height:60px; max-width:none; }
+.edit-note { font-size:13px; line-height:1.6; color:var(--ink-2); margin:0 0 18px; }
 .handle { cursor:grab; color:var(--ink-3); font-size:22px; user-select:none; }
 .move-controls { display:flex; flex-direction:column; gap:4px; }
 .move-controls button { padding:2px 5px; font-size:12px; }
@@ -73,6 +79,7 @@ button:focus-visible, select:focus-visible { outline:2px solid var(--ink); outli
     </div>
 
     <div class="toolbar"><h2 class="section-title">The roadmap</h2><div><button id="sort-score" type="button">Sort by score ↓</button> <button id="reset-scores" type="button">Reset</button></div></div>
+    <p class="edit-note">Make this roadmap your own: edit any idea’s title and description, then score and rank your priorities. Your changes are saved only in this browser. Reset restores the original examples.</p>
     <div class="steps">
         <div class="step">
             <div><div class="title">Subscribe</div><div class="line">Get an email when a new post is published.</div></div>
@@ -96,7 +103,7 @@ button:focus-visible, select:focus-visible { outline:2px solid var(--ink); outli
             <div><div class="title">Reading preferences</div><div class="line">Choose a comfortable text size and light or dark theme.</div></div>
         </div>
     </div>
-    <div class="rice-note">Drag the handles or use the arrow buttons to reorder. Scores and order are saved in this browser. Dropdown scoring on this page: Reach, Impact and Effort use High = 3, Medium = 2, Low = 1. Confidence uses High = 1, Medium = 0.8, Low = 0.5. Score = Reach x Impact x Confidence / Effort.</div>
+    <div class="rice-note">Drag the handles or use the arrow buttons to reorder. Titles, descriptions, scores and order are saved in this browser. Dropdown scoring on this page: Reach, Impact and Effort use High = 3, Medium = 2, Low = 1. Confidence uses High = 1, Medium = 0.8, Low = 0.5. Score = Reach x Impact x Confidence / Effort.</div>
 
 <div class="article__foot"><a href="../index.html">← Back to the latest</a></div>
 </main>
@@ -116,6 +123,22 @@ button:focus-visible, select:focus-visible { outline:2px solid var(--ink); outli
 
     document.querySelectorAll('.step').forEach(function (step) {
         var name = step.querySelector('.title').textContent;
+        step.dataset.id = name;
+        var copy = step.firstElementChild;
+        copy.className = 'idea-copy';
+        var originalDescription = copy.querySelector('.line').textContent;
+        var titleInput = document.createElement('input');
+        titleInput.type = 'text'; titleInput.className = 'title idea-edit';
+        titleInput.setAttribute('aria-label', name + ' title');
+        titleInput.value = saved[name] && typeof saved[name].title === 'string' ? saved[name].title : name;
+        var descriptionInput = document.createElement('textarea');
+        descriptionInput.className = 'line idea-edit'; descriptionInput.rows = 2;
+        descriptionInput.setAttribute('aria-label', name + ' description');
+        descriptionInput.value = saved[name] && typeof saved[name].description === 'string' ? saved[name].description : originalDescription;
+        copy.replaceChildren(titleInput, descriptionInput);
+        step.restoreCopy = function () { titleInput.value = name; descriptionInput.value = originalDescription; };
+        titleInput.addEventListener('input', update);
+        descriptionInput.addEventListener('input', update);
         var rice = document.createElement('div');
         rice.className = 'rice';
         var selects = {};
@@ -180,6 +203,9 @@ button:focus-visible, select:focus-visible { outline:2px solid var(--ink); outli
         });
 
         function update() {
+            var displayName = titleInput.value.trim() || 'untitled idea';
+            moves.children[0].setAttribute('aria-label', 'Move ' + displayName + ' up');
+            moves.children[1].setAttribute('aria-label', 'Move ' + displayName + ' down');
             var vals = {}, ready = true;
             FIELDS.forEach(function (f) {
                 vals[f[0]] = selects[f[0]].value;
@@ -189,6 +215,8 @@ button:focus-visible, select:focus-visible { outline:2px solid var(--ink); outli
                 ? (VAL.R[vals.R] * VAL.I[vals.I] * VAL.C[vals.C] / VAL.E[vals.E]).toFixed(1)
                 : '-';
             step.dataset.score = ready ? VAL.R[vals.R] * VAL.I[vals.I] * VAL.C[vals.C] / VAL.E[vals.E] : '-1';
+            vals.title = titleInput.value;
+            vals.description = descriptionInput.value;
             saved[name] = vals;
             try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
         }
@@ -200,7 +228,7 @@ button:focus-visible, select:focus-visible { outline:2px solid var(--ink); outli
 
     function saveOrder() {
         var names = Array.prototype.map.call(list.querySelectorAll('.step'), function (s) {
-            return s.querySelector('.title').textContent;
+            return s.dataset.id;
         });
         try { localStorage.setItem(ORDER_KEY, JSON.stringify(names)); } catch (e) {}
     }
@@ -209,7 +237,7 @@ button:focus-visible, select:focus-visible { outline:2px solid var(--ink); outli
         var order = JSON.parse(localStorage.getItem(ORDER_KEY)) || [];
         order.forEach(function (n) {
             Array.prototype.forEach.call(list.querySelectorAll('.step'), function (s) {
-                if (s.querySelector('.title').textContent === n) list.appendChild(s);
+                if (s.dataset.id === n) list.appendChild(s);
             });
         });
     } catch (e) {}
@@ -233,8 +261,9 @@ button:focus-visible, select:focus-visible { outline:2px solid var(--ink); outli
     });
     var originalOrder = ['Subscribe', 'Search', 'Topics & tags', 'Related posts', 'RSS feed', 'Post archive', 'Reading preferences'];
     document.getElementById('reset-scores').addEventListener('click', function () {
+        list.querySelectorAll('.step').forEach(function (step) { step.restoreCopy(); });
         list.querySelectorAll('select').forEach(function (select) { select.value = ''; select.dispatchEvent(new Event('change')); });
-        originalOrder.forEach(function (name) { Array.from(list.children).forEach(function (step) { if (step.querySelector('.title').textContent === name) list.appendChild(step); }); });
+        originalOrder.forEach(function (name) { Array.from(list.children).forEach(function (step) { if (step.dataset.id === name) list.appendChild(step); }); });
         saveOrder();
     });
 </script>
