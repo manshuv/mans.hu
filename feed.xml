@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss version="2.0">
+  <channel>
+    <title>Manshu Verma</title>
+    <link>https://manshuverma.com/</link>
+    <description>New writing and interactive essays by Manshu Verma.</description>
+    <language>en</language>
+    <item>
+      <title>Blog roadmap</title>
+      <link>https://manshuverma.com/posts/2026-10-14-blog-roadmap</link>
+      <guid isPermaLink="false">manshuverma:2026-10-14-blog-roadmap</guid>
+      <pubDate>Wed, 14 Oct 2026 00:00:00 GMT</pubDate>
+      <description>Explore enhancements for this blog with interactive RICE scoring. Read the full article on manshuverma.com.</description>
+    </item>
+    <item>
+      <title>How this site was made</title>
+      <link>https://manshuverma.com/posts/2026-07-09-how-this-site-was-made</link>
+      <guid isPermaLink="false">manshuverma:2026-07-09-how-this-site-was-made</guid>
+      <pubDate>Thu, 09 Jul 2026 00:00:00 GMT</pubDate>
+      <description>How this site was designed, built, hosted, and hardened with a small stack of human and AI tools. Read the full article on manshuverma.com.</description>
+    </item>
+    <item>
+      <title>Your life in weeks</title>
+      <link>https://manshuverma.com/posts/2026-07-08-your-life-in-weeks</link>
+      <guid isPermaLink="false">manshuverma:2026-07-08-your-life-in-weeks</guid>
+      <pubDate>Wed, 08 Jul 2026 00:00:00 GMT</pubDate>
+      <description>An interactive visualization of a 4,000-week life, by age instead of birthdate. Read the full article on manshuverma.com.</description>
+    </item>
+  </channel>
+</rss>
